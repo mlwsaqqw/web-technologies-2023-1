@@ -1,0 +1,68 @@
+@import "src/assets/styles/fonts.css";
+
+span{
+    font-size: 16px;
+    line-height: 26px;
+    color: #1F3F68;
+}
+h1{
+    font-size: 64px;
+    color: #1F3F68;
+}
+h2{
+    font-weight: 500;
+    font-size: 44px;
+    text-align: center;
+}
+h3{
+    font-size: 36px;
+    text-align: center;
+}
+h4{
+    font-size: 20px;
+    line-height: 30px;
+    color: #1F3F68;
+}
+.vvod, textarea{
+    border: 1px solid #356EAD;
+    box-sizing: border-box;
+    border-radius: 10px;
+    opacity: 0.4;
+}
+input[type=submit]{
+    
+    background: linear-gradient(to right, #4975e6, #8e54e9);
+    border-radius: 15px;
+    border: 1px;
+    font-weight: 525;
+    font-size: 20px;
+    font-family: Inter-Bold;
+    padding: 10px 25px;
+    text-align: center;
+    color: #FFFFFF;
+    text-transform: uppercase;
+}
+form{
+    background-image: url(456.jpg);
+    width: 500px;
+}
+.hleb {
+    background: linear-gradient(#FFFFFF, #418485);
+    height: 50px;
+    list-style-type: none;
+    }
+    
+    .hleb li {
+    display: inline-block;
+    font-size: 20px;
+    line-height: 50px;
+    padding: 0 20px;
+    border-top-right-radius: 25px;
+    border-bottom-right-radius: 25px;
+    box-shadow: 3px 0 1px #FFFFFF, 5px 0 #000000;
+    }
+
+.hleb li a {
+    color: #000000;
+    text-decoration: none;
+}

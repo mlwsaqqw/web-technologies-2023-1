@@ -4,15 +4,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <!-- <link rel="stylesheet" href="index.css"> -->
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <header>
-        <img src="pngtree-mountain-for-travel-adventure-logo-design-inspiration-png-image_1716383.jpg">
-        
+        <img src="1716383.jpg">
     </header>
     <nav>
-        <ul>
+        <ul class="hleb">
             <li><a href="index.html">Главная</a></li>
             <li><a href="contacts.html">Контакты</a></li>
         </ul>
@@ -36,10 +35,15 @@
         <span>г. Тюмень ул. Победы д.3<p>+7(993)838-73-36</p></span>
         <h4>Send us message</h4>
         <form>
-            <p>Full Name: <input maxlength="25" size="40"></p>
-            <p>Email: <input type="email" name="login"></p>
-            <p>Message: <textarea name="comment"></textarea></p>
-            <p><input type="submit"></p>
+            <label for="full-name">Full Name:</label>
+            <input type="text" id="full-name" class="vvod">
+            <br>
+            <label for="email">Email:</label>
+            <input type="email" id="email" class="vvod">
+            <br>
+            <label for="message">Message:</label>
+            <textarea id="message"></textarea>
+            <p><input type="submit" value="Отправить"></p>
         </form>
     </main>
     <footer>
