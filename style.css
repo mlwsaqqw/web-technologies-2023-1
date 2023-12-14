@@ -1,0 +1,179 @@
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    background-color: #F2F4F7;
+}
+
+header {
+    position: sticky;
+    top: 0;
+    width: 100%;
+    z-index: 100;
+}
+
+.block_header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 25px 100px;
+    background-color: white;
+    border-radius: 20px;
+}
+
+.block_header h3 {
+    display: inline;
+    color: #2D66EE;
+    margin-left: 20px;
+    text-transform: uppercase;
+}
+
+.block_header ul {
+    list-style-type: none;
+    color: #000000;
+}
+
+.block_header ol li {
+    color: #2D66EE;
+}
+
+.block_header ol li a {
+    color: #2D66EE;
+}
+
+.block_header li {
+    display: inline;
+    margin-right: 20px;
+}
+
+.block_header a {
+    text-decoration: none;
+}
+
+.block_header img {
+    vertical-align: middle;
+    height: 25px;
+    margin-right: 15px;
+}
+
+nav a {
+    color: black;
+}
+
+main {
+    flex: 1;
+}
+
+.block_development_full {
+    background-color: #F2F4F7;
+    display: flex;
+    flex-direction: row;
+}
+
+.block_development_all {
+    margin: 75px 40px 125px 100px;
+    width: 60%;
+}
+
+.block_development h3 {
+    font-size: 45px;
+}
+
+.block_development span {
+    color: #2D66EE;
+}
+
+.block_development_leave {
+    background-color: white;
+    border-radius: 20px;
+    margin-top: 50px;
+}
+
+.block_development_leave h4 {
+    font-size: 18px;
+    padding: 30px 20px;
+}
+
+.block_development_telname form {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    padding: 0px 30px 20px;
+}
+
+.block_development_telname label {
+    display: block;
+    color: gray;
+    font-size: 14px;
+}
+
+.block_development_telname input[type="text"],
+.block_development_telname input[type="tel"] {
+    width: 100%;
+    border: none;
+    border-bottom: 1px solid #98A2B3;
+}
+
+.block_development_telname input[type="text"]:focus,
+.block_development_telname input[type="tel"]:focus {
+    outline: none;
+}
+
+.block_development_telname input[type="submit"] {
+    background-color: #2D66EE;
+    color: white;
+    border-radius: 5px;
+    padding: 0 25px;
+}
+
+.block_screenshots {
+    width: 40%;
+}
+
+.block_footer {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: #101828;
+    color: white;
+    margin: 25px 100px;
+    border-radius: 20px;
+}
+
+.block_footer h3 {
+    text-align: center;
+    font-size: 40px;
+}
+
+.block_footer p {
+    font-size: 13px;
+    margin-bottom: 30px;
+}
+
+.block_footer_list {
+    margin-top: -25px;
+}
+
+.block_footer_list ul li {
+    display: inline-block;
+    margin-right: 150px;
+}
+
+.block_footer_list_telpostadress p {
+    font-size: 16px;
+}
+
+.block_footer_list_telpostadress span {
+    color: #98A2B3;
+    font-size: 14px;
+}
+
+.block_footer_list_telpostadress img, 
+.block_world img{
+    vertical-align: middle;
+    margin-right: 10px;
+    margin-bottom: 5px;
+    height: 25px;
+}
