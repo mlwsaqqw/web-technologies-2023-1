@@ -1,0 +1,30 @@
+#menu ul {
+    list-style: none;
+    padding-left: 20px;
+}
+
+#menu li {
+    cursor: pointer;
+}
+
+#menu li.close>ul {
+    display: none;
+}
+
+#menu li.open>ul {
+    display: block;
+}
+
+#menu ul>li::before {
+    content: " ";
+    min-width: 15px;
+    display: inline-block;
+}
+
+#menu ul>li.close::before {
+    content: '↟';
+}
+
+#menu ul>li.open::before {
+    content: '↡';
+}
