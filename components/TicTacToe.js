@@ -102,6 +102,14 @@ export const TicTacToe = {
    * @returns {boolean} - true если есть пустые блоки, false - если нет
    */
   checkHasEmptyBlocks() {
+    for (let row = 0; row < this.matrix.length; row++){
+      for (let col = 0; col < this.matrix[row].length; col++){
+        if (!this.matrix[row][col]){
+          return true;
+        }
+      }
+    }
+    return false;
   },
 
   /**
@@ -116,6 +124,18 @@ export const TicTacToe = {
    * Сброс данных и очищение дом дерева
    */
   restartGame() {
+    this.matrix = [
+      [null, null, null],
+      [null, null, null],
+      [null, null, null],
+    ];
+    // очистка дом-элементов
+    this.boxes.forEach(box => {
+      box.textContent = '';
+    });
+    //сброс флагов и параметров
+    this.isGameEnd = false;
+    this.isXTurn = true;
   },
   
   /**
@@ -148,6 +168,13 @@ export const TicTacToe = {
    * @param {boolean?} clear - если true - отчистить ячейку в матрице
    */
   setBlockValue(target, clear) {
+    const [row, col] = this.getBlockPosition(target)
+
+    if(!clear) {
+      this.matrix[row - 1][col - 1] = this.getCurrentTurnValue();
+    } else {
+      this.matrix[row - 1][col - 1] = null;
+    }
   },
 
   /**
@@ -158,6 +185,11 @@ export const TicTacToe = {
    * @param {boolean?} clear - если true - отчистить target
    */
   setBlockDom(target, clear) {
+    if(!clear){
+      target.textContent = this.getCurrentTurnValue();
+    } else {
+      target.textContent = '';
+    }    
   },
 
   /**
@@ -165,12 +197,15 @@ export const TicTacToe = {
    * @returns {string} Текущий ход 'X' или 'O'
    */
   getCurrentTurnValue() {
+    return this.isXTurn ? 'X' : 'O';
   },
 
   /**
    * Изменение текущего хода в данных
    */
   changeTurnValue() {
+    this.isXTurn = !this.isXTurn;
+    return this.isXTurn;
   },
 
   /**
@@ -186,16 +221,18 @@ export const TicTacToe = {
         this.matrix[first[0] - 1][first[1] - 1] === this.matrix[second[0] - 1][second[1] - 1] &&
         this.matrix[third[0] - 1][third[1] - 1] === this.matrix[second[0] - 1][second[1] - 1]
       ) {
-        return true
+        this.isGameEnd = true;
+        return (this.setGameEndStatus);
       }
     }
-
-    return false
+    this.isGameEnd = false;
+    return (this.setGameEndStatus);
   },
 
   /**
    * Установить статус об окончании игры
    */
   setGameEndStatus() {
+    return this.isGameEnd;
   }
 }
