@@ -1,157 +1,107 @@
-class PizzaTypes {
-    static Margarita = {
-        id: 'Margarita',
-        name: 'Маргарита',
-        price: 500,
-        caloric: 300
-    };
-    static Pepperoni = {
-        id: 'Pepperoni',
-        name: 'Пепперони',
-        price: 800,
-        caloric: 400
-    };
-    static Bavarian = {
-        id: 'Bavarian',
-        name: 'Баварская',
-        price: 700,
-        caloric: 450
-    };
-}
+function setToppingListeners() {
 
-class PizzaSize {
-    static Big = {
-        id: 'big',
-        name: 'Большая',
-        price: 200,
-        caloric: 200
-    };
-    static Small = {
-        id: 'small',
-        name: 'Маленькая',
-        price: 100,
-        caloric: 100
-    };
-}
+    const toppingSelector = '.pizza-order__topping';
+    const activeToppingClass = 'pizza-order__topping_active';
 
-class PizzaTopping {
-    static CreamyMozarella =  {
-        id: 'CreamyMozarella',
-        name: 'Сливочная Моцарелла',
-        info: {
-            big: {
-                price: 100,
-                caloric: 0
-            },
-            small: {
-                price: 50,
-                caloric: 0
-            }
-        }
-    };
-    static CheeseBoard =  {
-        id: 'CheeseBoard',
-        name: 'Сырный борт',
-        info: {
-            big: {
-                price: 300,
-                caloric: 50
-            },
-            small: {
-                price: 150,
-                caloric: 50
-            }
-        }
-    };
-    static CheddarAndParmesan =  {
-        id: 'CheddarAndParmesan',
-        name: 'Чеддер и Пармeзан',
-        info: {
-            big: {
-                price: 300,
-                caloric: 50
-            },
-            small: {
-                price: 150,
-                caloric: 50
-            }
-        }
-    };
-}
+    const toppings = document.querySelectorAll(toppingSelector);
 
-class Pizza {
+    toppings.forEach(topping => topping.addEventListener('click', (e) => {
+        e.currentTarget.classList.toggle(activeToppingClass);
 
-    #type;
-    #size;
-    #toppings;
+        const isSelectedToppingActive = e.currentTarget.classList.contains(activeToppingClass);
 
-    constructor(type, size, toppings) {
-        this.#type = type;
-        this.#size = size;
-        if (toppings)
-            this.#toppings = toppings.map(topping => this.#convertTopping(topping));
+        if (isSelectedToppingActive)
+            pizza.addTopping(PizzaTopping[e.currentTarget.dataset.topping]);
         else
-            this.#toppings = [];
-    }
+            pizza.removeTopping(PizzaTopping[e.currentTarget.dataset.topping]);
 
-    #convertTopping(topping) {
-        return {
-            id: topping.id,
-            name: topping.name,
-            price: topping.info[this.#size.id].price,
-            caloric: topping.info[this.#size.id].caloric,
-        }
-    }
+        updateOrderButton()
+    }));
+}
 
-    addTopping(topping) {
-        if (!this.#toppings.map(topping => topping.name).includes(topping.name))
-            this.#toppings.push(this.#convertTopping(topping));
-        return this;
-    }
+function setSizeListeners() {
 
-    deleteTopping(topping) {
+    const sizeSelector = '.pizza-order__size';
 
-        this.#toppings = this.#toppings.filter(t => t.id !== topping.id);
+    const size = [ ...document.querySelectorAll(sizeSelector) ][0].dataset.size;
+    pizza.setSize(PizzaSize[size]);
 
-        return this;
-    }
-    getToppings() {
-        return this.#toppings;
-    }
-    setType(pizzaType) {
-        this.#type = pizzaType;
-    }
+    document.querySelectorAll(sizeSelector).forEach(size => {
+        size.addEventListener('click', (e) => {
 
-    setSize(pizzaSize) {
-        this.#size = pizzaSize;
+            const backgroundItem = document.querySelector('.background-item');
+            const sizeItems = [...document.querySelectorAll('.pizza-order__size')];
 
-        if(PizzaTopping[this.#toppings[0]?.id])
-            this.#toppings = this.#toppings.map(topping => this.#convertTopping(PizzaTopping[topping?.id]));
-    }
+            pizza.setSize(PizzaSize[e.currentTarget.dataset.size]);
 
-    getSize() {
-        return this.#size.name;
-    }
 
-    calculatePrice() {
-        return [this.#size, this.#type, ...this.#toppings]
-            .reduce((acc, currValue) => acc + currValue.price, 0);
-    }
+            let left = sizeItems.slice(0, sizeItems.indexOf(e.target)).reduce((acc, sizeItem) => {
+                return acc + sizeItem.offsetWidth
+            }, 4);
 
-    calculateCalories() {
-        return [this.#size, this.#type, ...this.#toppings]
-            .reduce((acc, currValue) => acc + currValue.caloric, 0);
+            backgroundItem.setAttribute('style', 'left: ' + left + 'px; width: ' + e.target.offsetWidth + 'px');
+            updateOrderButton();
+            updateToppingsPrice();
+        })
+    })
+
+}
+
+function setTypeListeners() {
+    const typeSelector = '.pizza-order__type';
+    const activeTypeClass = 'pizza-order__type_active'
+    const types = document.querySelectorAll(typeSelector);
+    let isSelectedTypeActive = false;
+
+    types.forEach(type =>
+        type.addEventListener('click', (e) => {
+
+            types.forEach(el => el !== e.currentTarget && el.classList.remove(activeTypeClass));
+
+            e.currentTarget.classList.toggle(activeTypeClass);
+
+            isSelectedTypeActive = e.currentTarget.classList.contains(activeTypeClass);
+
+            pizza.setType(PizzaTypes[e.currentTarget.dataset.type]);
+            document.querySelector('.pizza-order__disabled').style.display = isSelectedTypeActive ? 'none' : 'block';
+
+            updateOrderButton(!isSelectedTypeActive);
+        })
+    );
+
+    setSizeListeners(isSelectedTypeActive);
+    setToppingListeners();
+}
+
+function initBackgroundItem() {
+    const sizeItems = document.querySelectorAll('.pizza-order__size');
+    const backgroundItem = document.querySelector('.background-item');
+    backgroundItem.setAttribute('style', 'left: ' + 4 + 'px; width: ' + sizeItems[0].offsetWidth + 'px');
+}
+
+function updateOrderButton(isReset) {
+    if (!isReset) {
+        document.querySelector('.pizza-order__total-price').innerHTML = pizza.calculatePrice();
+        document.querySelector('.pizza-order__total-calories').innerHTML = pizza.calculateCalories();
+    } else {
+        document.querySelector('.pizza-order__total-price').innerHTML = '0';
+        document.querySelector('.pizza-order__total-calories').innerHTML = '0';
     }
 }
 
-const pizza = new Pizza(PizzaTypes.Margarita, PizzaSize.Big);
-pizza.addTopping(PizzaTopping.CreamyMozarella);
-pizza.addTopping(PizzaTopping.CheeseBoard);
-console.log(pizza.getSize());
-console.log(pizza.calculateCalories());
-console.log(pizza.calculatePrice());
-console.log(pizza.getToppings());
-pizza.deleteTopping(PizzaTopping.CheeseBoard)
-console.log(pizza.getToppings());
-console.log(pizza.calculateCalories());
-console.log(pizza.calculatePrice());
+function updateToppingsPrice() {
+    document.querySelectorAll('.pizza-order__topping').forEach(topping => {
+       topping.querySelector('.pizza-order__topping-price').innerHTML = PizzaTopping[topping.dataset.topping].info[pizza.getSize().id].price;
+    });
+}
+
+const pizza = new Pizza(null, null, null);
+
+initBackgroundItem();
+setTypeListeners();
+
+
+
+
+
+
