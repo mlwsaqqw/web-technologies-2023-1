@@ -1,8 +1,8 @@
-import { Catalog } from "./src/components/catalog.js"
+import { Catalog } from './src/components/catalog.js';
 
-const renderPostItem = item => `
+const renderPostItem = (item) => `
     <a  
-        href="posts/${item.id}"
+        href="post.html?id=${item.id}"
         class="post-item"
     >
         <span class="post-item__title">
@@ -13,18 +13,22 @@ const renderPostItem = item => `
             ${item.body}
         </span>
     </a>
-`
+`;
 
-const getPostItems = ({ limit, page }) => {
-    return fetch(`https://jsonplaceholder.typicode.com/posts?_limit=${limit}&_page=${page}`)
-        .then(async res => {
-            const total = +res.headers.get('x-total-count')
-            const items = await res.json()
-            return { items, total }
-        })
-}
+const getPostItems = async ({ limit, page }) => {
+    try {
+        const response = await fetch(
+            `https://jsonplaceholder.typicode.com/posts?_limit=${limit}&_page=${page}`
+        );
+        const total = +response.headers.get('x-total-count');
+        const items = await response.json();
+        return { items, total };
+    } catch (error) {
+        console.log('Error:', error);
+    }
+};
 
-const renderPhotoItem = item => `
+const renderPhotoItem = (item) => `
     <a  
         href="photos/${item.id}"
         class="photo-item"
@@ -38,27 +42,31 @@ const renderPhotoItem = item => `
             class="photo-item__image"
         >
     </a>
-`
+`;
 
-const getPhotoItems = ({ limit, page }) => {
-    return fetch(`https://jsonplaceholder.typicode.com/photos?_limit=${limit}&_page=${page}`)
-        .then(async res => {
-            const total = +res.headers.get('x-total-count')
-            const items = await res.json()
-            return { items, total }
-        })
-}
+const getPhotoItems = async ({ limit, page }) => {
+    try {
+        const response = await fetch(
+            `https://jsonplaceholder.typicode.com/photos?_limit=${limit}&_page=${page}`
+        );
+        const total = +response.headers.get('x-total-count');
+        const items = await response.json();
+        return { items, total };
+    } catch (error) {
+        console.log('Error:', error);
+    }
+};
 
 const init = () => {
-    const catalog = document.getElementById('catalog')
-    new Catalog(catalog, { 
+    const catalog = document.getElementById('catalog');
+    new Catalog(catalog, {
         renderItem: renderPostItem,
-        getItems: getPostItems
-     }).init()
-}
+        getItems: getPostItems,
+    }).init();
+};
 
 if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', init)
+    document.addEventListener('DOMContentLoaded', init);
 } else {
-    init()
+    init();
 }
