@@ -5,7 +5,7 @@
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
+    <title>ToDo</title>
     <link rel="stylesheet" href="./src/assets/styles/style.css">
 </head>
 <body>
@@ -18,7 +18,21 @@
 </header>
 
 <main class="main">
+    <form id="formAdding" class="form">
+        <h1>Список ToDo</h1>
+        <label class="text-field">
+            <input type="text" class="text-field__input" name="description">
+            <span class="text-field__error">
+            </span>
+        </label>
 
+        <button type="submit" class="button">
+            Создать Todo
+        </button>
+    </form>
+
+    <div class="todoContainer">
+    </div>
 </main>
 
 <div class="loader-wrapper" data-loading>
