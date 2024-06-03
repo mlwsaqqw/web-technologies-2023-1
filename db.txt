@@ -1,0 +1,25 @@
+CREATE TABLE menu(
+    id SERIAL PRIMARY KEY,
+    name VARCHAR(200) NOT NULL,
+	has_children BOOLEAN NOT NULL,
+    parent_id INT,
+    FOREIGN KEY (parent_id) REFERENCES menu(id)
+);
+
+--DROP TABLE menu;
+
+INSERT INTO menu (name, has_children, parent_id) VALUES
+('Каталог товаров', true, NULL),
+('Мойки', true, 1),
+('Ulgran', true, 2),
+('проверка', false, 3),
+('Smth', false, 3),
+('Vigro Mramor', false, 2),
+('Handmade', true, 2),
+('Smth', false, 7),
+('Smth', false, 7),
+('Фильтры', true, 1),
+('Ulgran', true, 10),
+('Smth', false, 11),
+('Smth', false, 11),
+('Vigro Mramor', false, 10);
